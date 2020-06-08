@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class main extends Application {
+public class ReactionTimer extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -18,18 +18,26 @@ public class main extends Application {
         VBox main_menu = new VBox();
         main_menu.setAlignment(Pos.CENTER);
         main_menu.setSpacing(20);
+
         Text title = new Text("Reaction Timer");
         title.setStroke(Color.RED);
-        title.setFont(Font.font("Verdana", 20));
+        title.setFont(Font.font("Verdana", 30));
+
         Button play = new Button("Play");
+        play.setOnAction(e -> play_game());
+
         Button exit = new Button("Exit");
         main_menu.getChildren().addAll(title, play, exit);
 
-        Scene scene = new Scene(main_menu);
-        primaryStage.setScene(scene);
+        Scene main_scene = new Scene(main_menu);
+        primaryStage.setScene(main_scene);
         primaryStage.setTitle("Welcome to the Reaction Timer!");
         primaryStage.show();
 
+    }
+
+    private void play_game() {
+        
     }
 
     public static void main(String[] args) { launch(args); }
