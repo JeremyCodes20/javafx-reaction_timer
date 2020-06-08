@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -15,6 +16,8 @@ public class main extends Application {
         primaryStage.setHeight(400);
 
         VBox main_menu = new VBox();
+        main_menu.setAlignment(Pos.CENTER);
+        main_menu.setSpacing(20);
         Text title = new Text("Reaction Timer");
         title.setStroke(Color.RED);
         title.setFont(Font.font("Verdana", 20));
