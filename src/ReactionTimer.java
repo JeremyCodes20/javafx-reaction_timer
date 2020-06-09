@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 public class ReactionTimer extends Application {
 
+    Scene main_scene;
+    Scene game_scene;
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setWidth(500);
@@ -34,7 +37,7 @@ public class ReactionTimer extends Application {
 
         main_menu.getChildren().addAll(title, play, exit);
 
-        Scene main_scene = new Scene(main_menu);
+        main_scene = new Scene(main_menu);
         primaryStage.setScene(main_scene);
         primaryStage.setTitle("Welcome to the Reaction Timer!");
         primaryStage.show();
@@ -44,23 +47,29 @@ public class ReactionTimer extends Application {
         StackPane button_pane = new StackPane();
         button_pane.setAlignment(Pos.CENTER);
 
-        Circle red_button = new Circle(30);
+        Circle red_button = new Circle(50);
         red_button.setStroke(Color.RED);
         red_button.setFill(Color.TRANSPARENT);
         red_button.setOnMousePressed(e -> too_early(stage));
 
-        Circle green_button = new Circle(30);
+        Circle green_button = new Circle(50);
         green_button.setFill(Color.GREEN);
         green_button.setVisible(false);
         green_button.setOnMousePressed(e -> good_press(stage));
 
-        Scene game_scene = new Scene(button_pane);
+        button_pane.getChildren().addAll(red_button, green_button);
+
+        game_scene = new Scene(button_pane);
+
+        stage.setScene(game_scene);
     }
 
     private void good_press(Stage stage) {
     }
 
     private void too_early(Stage stage) {
+        stage.setTitle("Too early! Try again.");
+        stage.setScene(main_scene);
     }
 
     public static void main(String[] args) { launch(args); }
