@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +28,8 @@ public class ReactionTimer extends Application {
         play.setOnAction(e -> play_game());
 
         Button exit = new Button("Exit");
+        exit.setOnAction(e -> Platform.exit());
+
         main_menu.getChildren().addAll(title, play, exit);
 
         Scene main_scene = new Scene(main_menu);
@@ -37,7 +40,7 @@ public class ReactionTimer extends Application {
     }
 
     private void play_game() {
-        
+
     }
 
     public static void main(String[] args) { launch(args); }
