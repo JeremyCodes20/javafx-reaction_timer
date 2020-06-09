@@ -92,11 +92,10 @@ public class ReactionTimer extends Application {
 
     private void good_press(Stage stage) {
         end_time = System.currentTimeMillis();
-        System.out.println(end_time);
 
-        float diff_time = TimeUnit.MILLISECONDS.toSeconds(end_time - start_time);
+        double diff_time = ((double) end_time - start_time) / 1000.000;
 
-        stage.setTitle("Your time was: " + diff_time + ".");
+        stage.setTitle("Your time was: " + diff_time + " seconds.");
         stage.setScene(main_scene);
     }
 
