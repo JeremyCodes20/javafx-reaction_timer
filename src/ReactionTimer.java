@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.concurrent.TimeUnit;
+
 public class ReactionTimer extends Application {
 
     Scene main_scene;
@@ -30,7 +32,13 @@ public class ReactionTimer extends Application {
         title.setFont(Font.font("Verdana", 30));
 
         Button play = new Button("Play");
-        play.setOnAction(e -> play_game(primaryStage));
+        play.setOnAction(e -> {
+            try {
+                play_game(primaryStage);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        });
 
         Button exit = new Button("Exit");
         exit.setOnAction(e -> Platform.exit());
@@ -43,7 +51,7 @@ public class ReactionTimer extends Application {
         primaryStage.show();
     }
 
-    private void play_game(Stage stage) {
+    private void play_game(Stage stage) throws InterruptedException {
         StackPane button_pane = new StackPane();
         button_pane.setAlignment(Pos.CENTER);
 
@@ -52,7 +60,7 @@ public class ReactionTimer extends Application {
         red_button.setFill(Color.TRANSPARENT);
         red_button.setOnMousePressed(e -> too_early(stage));
 
-        Circle green_button = new Circle(50);
+        Circle green_button = new Circle(53);
         green_button.setFill(Color.GREEN);
         green_button.setVisible(false);
         green_button.setOnMousePressed(e -> good_press(stage));
@@ -62,6 +70,9 @@ public class ReactionTimer extends Application {
         game_scene = new Scene(button_pane);
 
         stage.setScene(game_scene);
+
+//        TimeUnit.SECONDS.sleep(2);
+//        green_button.setVisible(true);
     }
 
     private void good_press(Stage stage) {
