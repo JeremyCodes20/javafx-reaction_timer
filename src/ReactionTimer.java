@@ -11,12 +11,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class ReactionTimer extends Application {
 
     Scene main_scene;
     Scene game_scene;
+    long start_time;
+    long end_time;
 
     @Override
     public void start(Stage primaryStage) {
@@ -41,7 +47,10 @@ public class ReactionTimer extends Application {
         });
 
         Button exit = new Button("Exit");
-        exit.setOnAction(e -> Platform.exit());
+        exit.setOnAction(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
         main_menu.getChildren().addAll(title, play, exit);
 
@@ -71,11 +80,24 @@ public class ReactionTimer extends Application {
 
         stage.setScene(game_scene);
 
-//        TimeUnit.SECONDS.sleep(2);
-//        green_button.setVisible(true);
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable wait = () -> {
+            green_button.setVisible(true);
+            start_time = System.currentTimeMillis();
+        };
+        int delay = ThreadLocalRandom.current().nextInt(3, 9);
+
+        ses.schedule(wait, delay, TimeUnit.SECONDS);
     }
 
     private void good_press(Stage stage) {
+        end_time = System.currentTimeMillis();
+        System.out.println(end_time);
+
+        float diff_time = TimeUnit.MILLISECONDS.toSeconds(end_time - start_time);
+
+        stage.setTitle("Your time was: " + diff_time + ".");
+        stage.setScene(main_scene);
     }
 
     private void too_early(Stage stage) {
